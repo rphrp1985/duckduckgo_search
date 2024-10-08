@@ -135,6 +135,10 @@ class DDGS:
         resp_content = self._get_url("GET", "https://duckduckgo.com", params={"q": keywords})
         return _extract_vqd(resp_content, keywords)
 
+    import json
+    
+
+    
     def chat(self, keywords: str, model: str = "gpt-4o-mini", timeout: int = 30) -> str:
         """Initiates a chat session with DuckDuckGo AI.
 
@@ -165,12 +169,12 @@ class DDGS:
             resp = self.client.get("https://duckduckgo.com/duckchat/v1/status", headers={"x-vqd-accept": "1"})
             self._chat_vqd = resp.headers.get("x-vqd-4", "")
 
-        self._chat_messages.append({"role": "user", "content": keywords})
+        # self._chat_messages.append({"role": "user", "content": keywords})
         self._chat_tokens_count += len(keywords) // 4 if len(keywords) >= 4 else 1  # approximate number of tokens
 
         json_data = {
             "model": models[model],
-            "messages": self._chat_messages,
+            "messages": data = json.loads(keywords),
         }
         resp = self.client.post(
             "https://duckduckgo.com/duckchat/v1/chat",
@@ -198,7 +202,7 @@ class DDGS:
                 results.append(message)
         result = "".join(results)
 
-        self._chat_messages.append({"role": "assistant", "content": result})
+        # self._chat_messages.append({"role": "assistant", "content": result})
         self._chat_tokens_count += len(results)
         return result
 
