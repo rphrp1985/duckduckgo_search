@@ -1,5 +1,6 @@
 ![Python >= 3.8](https://img.shields.io/badge/python->=3.8-red.svg) [![](https://badgen.net/github/release/deedy5/duckduckgo_search)](https://github.com/deedy5/duckduckgo_search/releases) [![](https://badge.fury.io/py/duckduckgo-search.svg)](https://pypi.org/project/duckduckgo-search) [![Downloads](https://static.pepy.tech/badge/duckduckgo-search)](https://pepy.tech/project/duckduckgo-search) [![Downloads](https://static.pepy.tech/badge/duckduckgo-search/week)](https://pepy.tech/project/duckduckgo-search)
 # Duckduckgo_search<a name="TOP"></a>
+> This repository is no longer maintained.
 
 Search for words, documents, images, videos, news, maps and text translation using the DuckDuckGo.com search engine. Downloading files and images to a local hard drive.
 
@@ -26,10 +27,6 @@ Search for words, documents, images, videos, news, maps and text translation usi
 ```python
 pip install -U duckduckgo_search
 ```
-There is also a beta release that uses the `httpx` library:
-```python
-pip install -U duckduckgo_search==6.2.11b1
-```
 > [!NOTE]
 > you can install lxml to use the `text` function with `backend='html'` or `backend='lite'` (size ≈ 12Mb)</br>
 > `pip install -U duckduckgo_search[lxml]`
@@ -44,13 +41,15 @@ CLI examples:
 # AI chat
 ddgs chat
 # text search
-ddgs text -k "standard oil"
+ddgs text -k "Assyrian siege of Jerusalem"
 # find and download pdf files via proxy
-ddgs text -k "pushkin filetype:pdf" -r wt-wt -m 50 -d -p https://1.2.3.4:1234
+ddgs text -k "Economics in one lesson filetype:pdf" -r wt-wt -m 50 -p https://1.2.3.4:1234 -d -dd economics_reading
 # using Tor Browser as a proxy (`tb` is an alias for `socks5://127.0.0.1:9150`)
-ddgs text -k "'to kill a mockingbird' filetype:doc" -m 50 -d -p tb
+ddgs text -k "'The history of the Standard Oil Company' filetype:doc" -m 50 -d -p tb
 # find and save to csv
-ddgs text -k "'neuroscience exploring the brain' filetype:pdf" -m 70 -o csv
+ddgs text -k "'neuroscience exploring the brain' filetype:pdf" -m 70 -o neuroscience_list.csv
+# don't verify SSL when making the request
+ddgs text -k "Mississippi Burning" -v false
 # find and download images
 ddgs images -k "beware of false prophets" -r wt-wt -type photo -m 500 -d
 # get news for the last day and save to json
@@ -166,6 +165,7 @@ class DDGS:
         proxy (str, optional): proxy for the HTTP client, supports http/https/socks5 protocols.
             example: "http://user:pass@example.com:3128". Defaults to None.
         timeout (int, optional): Timeout value for the HTTP client. Defaults to 10.
+        verify (bool): SSL verification when making the request. Defaults to True.
     """
 ```
 
